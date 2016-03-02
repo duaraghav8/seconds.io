@@ -13,10 +13,12 @@ userSchema = {
 meetingSchema = {
   creator: { type: String },
   members: { type: Array },
-  slots: { type: Object },
+  freeSlots: { type: Object },
   venue: { type: String },
-  duration: { type: Number }
-  description: { type: String }
+  duration: { type: Number },
+  agenda: { type: String },
+  description: { type: String },
+  date: { type: Date }
 };
 
 userModel = mongoose.model ('users', userSchema);

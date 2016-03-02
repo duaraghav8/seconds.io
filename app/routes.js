@@ -1,3 +1,5 @@
+'use strict';
+
 var controllers = require ('./controllers');
 
 module.exports = function (app, passport) {
@@ -9,7 +11,12 @@ module.exports = function (app, passport) {
       failureRedirect: '/login'
     }))
     .get ('/profile', controllers.isLoggedIn, controllers.profileGet)
-		.get ('/logout', controllers.isLoggedIn, controllers.logoutGet);
+		.get ('/logout', controllers.isLoggedIn, controllers.logoutGet)
+    .get ('/signup', controllers.signupGet)
+    .post ('/signup', passport.authenticate ('local_signup', {
+      successRedirect: '/profile',
+      failureRedirect: '/signup'
+    }));
 
   //===============facebook==========================
   //=================================================
@@ -22,6 +29,9 @@ module.exports = function (app, passport) {
       failureRedirect : '/'
     })
   );
+
+  //===============API Calls==========================
+  //=================================================
 
   return (app);
 }

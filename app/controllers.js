@@ -1,3 +1,5 @@
+'use strict';
+
 exports.loginGet = function (req, res) {
 	if (req.user) {
 		res.redirect ('/profile');
@@ -23,6 +25,15 @@ exports.profileGet = function (req, res) {
 exports.logoutGet = function (req, res) {
 	req.logout ();
 	res.redirect ('/');
+};
+
+exports.signupGet = function (req, res) {
+	if (req.user) {
+		res.redirect ('/profile');
+	}
+	else {
+		res.render ('signup');
+	}
 };
 ///////////////////////////////////////////////////////////////////////////////////////
 //								API CONTROLLERS

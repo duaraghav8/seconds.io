@@ -12,6 +12,8 @@ module.exports = function (passport) {
 		});
 	});
 
+  //===============Local Login Strategy==========================
+  //=============================================================
   passport.use ('local_login', new localStrategy ({
     usernameField: 'email',
     passwordField: 'password',
@@ -28,6 +30,9 @@ module.exports = function (passport) {
       return (done (null, false));
     });
   }));
+
+  //===============Local signup Strategy=============
+  //=================================================
 
   passport.use ('local_signup', new localStrategy ({
     usernameField: 'email',
@@ -62,6 +67,8 @@ module.exports = function (passport) {
     });
   }));
 
+  //========facebook Signup+Login Strategy===========
+  //=================================================
   passport.use (new facebookStrategy ({
     clientID: '570197129796800', // your App ID
     clientSecret: '8eb2c4d9dcd49cc7ddab9c0c97d4659e', // your App Secret
@@ -96,3 +103,4 @@ module.exports = function (passport) {
     });
   }));
 };
+//Beware of the Callback Hell :-S
