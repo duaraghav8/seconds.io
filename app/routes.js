@@ -3,6 +3,9 @@
 var controllers = require ('./controllers');
 
 module.exports = function (app, passport) {
+  //===============Static Pages======================
+  //=================================================
+
   app
     .get ('/', controllers.loginGet)
     .get ('/login', controllers.loginGet)
@@ -16,7 +19,11 @@ module.exports = function (app, passport) {
     .post ('/signup', passport.authenticate ('local_signup', {
       successRedirect: '/profile',
       failureRedirect: '/signup'
-    }));
+    }))
+    /*.get ('/upcoming', controllers.isLoggedIn, controllers.upcoming)
+    .get ('/invitations', controllers.isLoggedIn, controllers.invitations)
+    .get ('/my_meetings', controllers.isLoggedIn, controllers.my_meetings)
+    .get ('/create_meeting', controllers.isLoggedIn, controllers.create_meeting)*/;
 
   //===============facebook==========================
   //=================================================
