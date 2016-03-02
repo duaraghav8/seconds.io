@@ -1,5 +1,8 @@
 'use strict';
 
+//===============Static Page Controllers===========
+//=================================================
+
 exports.loginGet = function (req, res) {
 	if (req.user) {
 		res.redirect ('/profile');
@@ -35,6 +38,16 @@ exports.signupGet = function (req, res) {
 		res.render ('signup');
 	}
 };
-///////////////////////////////////////////////////////////////////////////////////////
-//								API CONTROLLERS
-///////////////////////////////////////////////////////////////////////////////////////
+
+exports.upcoming = function (req, res) { res.render ('upcoming'); };
+
+exports.invitations = function (req, res) { res.render ('invitations'); };
+
+exports.my_meetings = function (req, res) { res.render ('my_meetings'); };
+
+exports.create_meeting = function (req, res) { res.render ('create_meeting'); };
+
+exports.notFound = function (req, res) { res.status (404).render ('404') };
+
+//===============API Controllers===================
+//=================================================

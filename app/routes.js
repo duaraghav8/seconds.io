@@ -20,10 +20,10 @@ module.exports = function (app, passport) {
       successRedirect: '/profile',
       failureRedirect: '/signup'
     }))
-    /*.get ('/upcoming', controllers.isLoggedIn, controllers.upcoming)
+    .get ('/upcoming', controllers.isLoggedIn, controllers.upcoming)
     .get ('/invitations', controllers.isLoggedIn, controllers.invitations)
     .get ('/my_meetings', controllers.isLoggedIn, controllers.my_meetings)
-    .get ('/create_meeting', controllers.isLoggedIn, controllers.create_meeting)*/;
+    .get ('/create_meeting', controllers.isLoggedIn, controllers.create_meeting);
 
   //===============facebook==========================
   //=================================================
@@ -37,8 +37,13 @@ module.exports = function (app, passport) {
     })
   );
 
-  //===============API Calls==========================
+  //===============API Calls=========================
   //=================================================
+
+  //===============404===============================
+  //=================================================
+
+  app.all ('*', controllers.notFound);
 
   return (app);
 }
