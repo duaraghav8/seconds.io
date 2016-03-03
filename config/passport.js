@@ -20,7 +20,7 @@ module.exports = function (passport) {
     passReqToCallback: true
   },
   function (req, email, password, done) {
-    userModel.findOne ({'local.email': email, 'local.password': password}, {'local.email': 1}, function (err, response) {
+    userModel.findOne ({'local.email': email, 'local.password': password}, {'local.email': 1, facebook: 1}, function (err, response) {
       if (err) {
         return (done (err));
       }

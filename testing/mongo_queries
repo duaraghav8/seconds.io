@@ -1,0 +1,5 @@
+//push a random value in upcomingMeetings array in User Object
+db.users.update ({ "_id" : ObjectId("56d7f5dcfdb5748b2d837d86")}, {$push: {upcomingMeetings: '2873gsg'}}, {upsert:true})
+
+//pop last value from upcomingMeetings array from user object
+db.users.update ({ "_id" : ObjectId("56d7f5dcfdb5748b2d837d86")}, {$pop: {upcomingMeetings: 1}}, {upsert:true});

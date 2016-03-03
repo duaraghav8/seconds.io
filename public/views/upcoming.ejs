@@ -8,6 +8,10 @@
   <meta name="author" content="Akash Bhadange">
   <title>Upcoming Meetings</title>
 
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> <!--Basic Angular-->
+    <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script> <!--UI Router-->
+    <script src = "../js/angular/upcoming.js"></script> <!--Angular App-->
+
   <!-- Bootstrap -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
@@ -20,7 +24,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
     </head>
-    <body id="page-top" data-spy="scroll" data-target=".side-menu">
+    <body id="page-top" data-spy="scroll" data-target=".side-menu" ng-app = "upcoming">
       <nav class="side-menu">
         <ul>
           <li class="hidden active">
@@ -63,12 +67,20 @@
         <div class="row hero-header" id="home">
           <div class = "col-md-7"><a style = "color: white;" href = "/logout">Logout</a></div>
           <div class="col-md-7">
-            <h1>Upcoming meetings</h1>
-          </div>
+            <h1>Upcoming meetings</h1><br />
 
-          <div class="col-md-5 hidden-xs">
-            <!--<img src="img/rocket.png" class="rocket animated bounce">-->
+            <!--ANGULAR APP VIEW-->
+            <pre>
+              <ui-view></ui-view>
+            </pre>
+            <!--/ANGULAR APP VIEW-->
+
           </div>
+<!--
+          <div class="col-md-5 hidden-xs">
+            <img src="img/rocket.png" class="rocket animated bounce">
+          </div>
+-->
         </div>
         <!-- End: Header -->
       </div>
@@ -80,5 +92,22 @@
       <script src="../js/jquery.easing.min.js"></script>
       <script src="../js/scrolling-nav.js"></script>
       <script src="../js/validator.js"></script>
+<!--      Angular includes
+      <script src="../js/angular.min.js"></script>
+      <script src="../js/angular-ui-router.min.js"></script>
+      <script src="../js/angular/upcoming.js"></script>
+-->
+
+      <!--angular views-->
+      <script type = "text/ng-template" id = "/upcomingList.html">
+        <div ng-repeat = "meeting in meetingList | orderBy: date">
+          {{meeting.agenda}} {{meeting.date}} by {{meeting.creator}}<br />
+        </div>
+      </script>
+
+      <script type = "text/ng-template" id = "/upcoming.html">
+        {{blank}}
+      </script>
+      <!--/angular views-->
     </body>
     </html>

@@ -1,6 +1,7 @@
 'use strict';
 
-var controllers = require ('./controllers');
+var controllers = require ('./controllers'),
+    apiRouter = require ('express').Router ();
 
 module.exports = function (app, passport) {
   //===============Static Pages======================
@@ -37,8 +38,18 @@ module.exports = function (app, passport) {
     })
   );
 
-  //===============API Calls=========================
+  //===============API Routes========================
   //=================================================
+
+  apiRouter
+    .use (controllers.isLoggedIn)
+    .get ('/upcoming', controllers.api.upcoming);
+    /*.get ('/upcoming', controllers.upcomingList);
+    .get ('/upcoming/:meetingId', controllers.upcomingById)
+    .get ('/upcoming/:meetingId/cancel', controllers.cancelUpcoming)
+    .patch ('/upcoming/:id/edit', controllers.editUpcoming);*/
+
+  app.use ('/api', apiRouter);
 
   //===============404===============================
   //=================================================
