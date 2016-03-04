@@ -45,9 +45,22 @@ module.exports = function (app, passport) {
     .use (controllers.isLoggedIn)
     .get ('/upcoming', controllers.api.upcoming);
     /*.get ('/upcoming', controllers.upcomingList);
-    .get ('/upcoming/:meetingId', controllers.upcomingById)
-    .get ('/upcoming/:meetingId/cancel', controllers.cancelUpcoming)
-    .patch ('/upcoming/:id/edit', controllers.editUpcoming);*/
+    .get ('/upcoming/:id', controllers.upcomingById)
+    .get ('/upcoming/:id/cancel', controllers.cancelUpcoming)
+    .patch ('/upcoming/:id/edit', controllers.editUpcoming)
+    .put ('/upcoming/:id/edit', controllers.editUpcoming)
+
+    .get ('/invitations', controllers.api.invitationsList)
+    .get ('/invitations/:id', controllers.api.invitationById)
+    .post ('/invitations/:id/accept', controllers.api.acceptInvitation)
+    .post ('/invitations/:id/reject', controllers.api.rejectInvitation)
+
+    .post ('/meetings', controllers.api.newMeeting)
+    .get ('/meetings', controllers.api.meetingsList)
+    .get ('/meetings/:id', controllers.api.meetingById)
+    .put ('/meetings/:id', controllers.api.editMeeting)
+    .patch ('/meetings/:id', controllers.api.editMeeting);
+    */
 
   app.use ('/api', apiRouter);
 

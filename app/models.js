@@ -21,5 +21,5 @@ meetingSchema = new mongoose.Schema ({
   date: { type: Date }
 });
 
-userModel = mongoose.model ('users', userSchema);
-meetingModel = mongoose.model ('meetings', meetingSchema);
+userModel = mongoose.model ('users', userSchema, 'users');
+meetingModel = mongoose.model ('meetings', meetingSchema, 'meetings');

@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require ('mongoose'),
+		async = require ('async'),
 		userModel = mongoose.model ('users'),
 		meetingModel = mongoose.model ('meetings');
 exports.api = {};
@@ -66,17 +67,37 @@ exports.api.upcoming = function (req, res) {
 			res.sendStatus (404);
 		}
 		else {
-			console.log (response);
-			var result = [];
-			for (var pos in response) {
-				meetingModel.findOne ({_id: response [pos]}, {agenda: 1, date: 1}, function (err, meetingObject) {
-					if (!err && meetingObject) {
-						result.push (meetingObject);
-						console.log (result);
-					}
+			console.log (response.upcomingMeetings [1]);
+			var fetchCalls = [];
+
+			meetingModel.findById (response.upcomingMeetings [1], {agenda: 1, date: 1}, function (err, meetingObject) {
+				console.log ('Query: ', err, meetingObject);
+				res.send ('thanks');
+			});
+
+/*
+			for (var pos in response.upcomingMeetings) {
+				fetchCalls.push (function (callback) {
+					console.log ('inside: ', response.upcomingMeetings [pos]);
+					meetingModel.findById (response.upcomingMeetings [pos], {agenda: 1, date: 1}, function (err, meetingObject) {
+						console.log ('Query: ', err, meetingObject);
+						if (!err && meetingObject) {
+							//result.push (meetingObject);
+							callback (null, meetingObject);
+						}
+						else {
+							callback (new Error ('Database Error'));
+						}
+					});
 				});
 			}
-			res.json (result);
+
+			async.parallel (fetchCalls, function (err, result) {
+				console.log ('Async Callback: ', err, result);
+				if (err) { res.sendStatus (500); }
+				else { res.json (result);	}
+			});
+			*/
 		}
 	});
 };
