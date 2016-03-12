@@ -70,11 +70,11 @@ exports.api.upcoming = function (req, res) {
 			var fetchCalls = [], i;
 
 			for (i = 0; i < response.upcomingMeetings.length; i++) {
-					fetchCalls.push (function (meetingId) {
-						return (function (callback) {
-							meetingModel.findById (meetingId, {agenda: 1, date: 1}, callback);
-						});
-					} (response.upcomingMeetings [i]));
+				fetchCalls.push (function (meetingId) {
+					return (function (callback) {
+						meetingModel.findById (meetingId, {agenda: 1, date: 1}, callback);
+					});
+				} (response.upcomingMeetings [i]));
 			}
 
 			async.parallel (fetchCalls, function (err, results) {
