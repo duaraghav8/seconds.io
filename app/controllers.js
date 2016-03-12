@@ -67,37 +67,20 @@ exports.api.upcoming = function (req, res) {
 			res.sendStatus (404);
 		}
 		else {
-			console.log (response.upcomingMeetings [1]);
-			var fetchCalls = [];
+			var fetchCalls = [], i;
 
-			meetingModel.findById (response.upcomingMeetings [1], {agenda: 1, date: 1}, function (err, meetingObject) {
-				console.log ('Query: ', err, meetingObject);
-				res.send ('thanks');
-			});
-
-/*
-			for (var pos in response.upcomingMeetings) {
-				fetchCalls.push (function (callback) {
-					console.log ('inside: ', response.upcomingMeetings [pos]);
-					meetingModel.findById (response.upcomingMeetings [pos], {agenda: 1, date: 1}, function (err, meetingObject) {
-						console.log ('Query: ', err, meetingObject);
-						if (!err && meetingObject) {
-							//result.push (meetingObject);
-							callback (null, meetingObject);
-						}
-						else {
-							callback (new Error ('Database Error'));
-						}
-					});
-				});
+			for (i = 0; i < response.upcomingMeetings.length; i++) {
+					fetchCalls.push (function (meetingId) {
+						return (function (callback) {
+							meetingModel.findById (meetingId, {agenda: 1, date: 1}, callback);
+						});
+					} (response.upcomingMeetings [i]));
 			}
 
-			async.parallel (fetchCalls, function (err, result) {
-				console.log ('Async Callback: ', err, result);
-				if (err) { res.sendStatus (500); }
-				else { res.json (result);	}
+			async.parallel (fetchCalls, function (err, results) {
+				console.log (results);
+				res.json (results);
 			});
-			*/
 		}
 	});
 };
