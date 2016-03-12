@@ -69,18 +69,23 @@ exports.api.upcoming = function (req, res) {
 		else {
 			var fetchCalls = [], i;
 
+			/*
+				Crucial to recognize the function rapper 'function (meetingID)',
+				which exploits the closure property so the corresponding meeting ID is
+				preserved within the function when async calls the returned function
+
+				Refer to Pg. 39, JavaScript - The Good Parts (Bad Example vs. Better Example)
+			*/
+
 			for (i = 0; i < response.upcomingMeetings.length; i++) {
 				fetchCalls.push (function (meetingId) {
 					return (function (callback) {
-						meetingModel.findById (meetingId, {agenda: 1, date: 1}, callback);
+						meetingModel.findById (meetingId, {agenda: 1, date: 1, creator: 1}, callback);
 					});
 				} (response.upcomingMeetings [i]));
 			}
-
-			async.parallel (fetchCalls, function (err, results) {
-				console.log (results);
-				res.json (results);
-			});
+			
+			async.parallel (fetchCalls, function (err, results) { res.json (results); });
 		}
 	});
 };

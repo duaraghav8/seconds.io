@@ -30,13 +30,10 @@ app.config (['$stateProvider', '$urlRouterProvider', function ($stateProvider, $
 
 app
   .controller ('ctrlUpcomingList', ['$scope', '$http', '$q', function ($scope, $http, $q) {
-    $scope.meetingList = [
-      {agenda: 'Test agenda 1', date: 'Sample date 1', creator: 'Mein hum creator'},
-      {agenda: 'Test agenda 2', date: 'Sample date 2', creator: 'Mein hum creator'}
-    ];
-
+    $scope.meetingList = [];
+    
     $http.get (siteUrl + '/api/upcoming').then (function (response) {
-      console.log (response.data);
+      $scope.meetingList = response.data;
     }, function (err) {
       console.log (err);
     });
