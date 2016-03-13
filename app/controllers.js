@@ -3,7 +3,8 @@
 var mongoose = require ('mongoose'),
 		async = require ('async'),
 		userModel = mongoose.model ('users'),
-		meetingModel = mongoose.model ('meetings');
+		meetingModel = mongoose.model ('meetings'),
+		StatusCodes = require ('./StatusCodes');
 exports.api = {};
 
 //===============Static Page Controllers===========
@@ -86,8 +87,8 @@ exports.api.upcoming = function (req, res) {
 			}
 
 			async.parallel (fetchCalls, function (err, results) {
-				if (err) {}
-				res.json (results);
+				if (err) { res.status (StatusCodes.INTERNAL_SERVER_ERROR); }
+				else { res.status (StatusCodes.OK).json (results); }
 			});
 		}
 	});
@@ -95,8 +96,8 @@ exports.api.upcoming = function (req, res) {
 
 exports.api.upcomingById = function (req, res) {
 	meetingModel.findOne ({_id: req.params.meetingId}, function (err, meeting) {
-		if (err) {}
-		if (!meeting) {}
-		res.json (meeting);
+		if (err) { res.status (StatusCodes.INTERNAL_SERVER_ERROR); }
+		if (!meeting) { res.status (StatusCodes.NOT_FOUND); }
+		else { res.status (StatusCodes.OK).json (meeting); }
 	});
 };
