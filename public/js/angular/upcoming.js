@@ -46,4 +46,12 @@ app
     }, function (err) {
       console.log (err);
     });
+
+/*
+    $http.get (siteUrl + '/api/upcoming/' + $stateParams.id + '/cancel').then (function (response) {
+      console.log (response);
+    }, function (err) {
+      console.log (err);
+    });
+*/
   }]);

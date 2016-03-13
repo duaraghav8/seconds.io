@@ -95,9 +95,31 @@ exports.api.upcoming = function (req, res) {
 };
 
 exports.api.upcomingById = function (req, res) {
+	/* Once meeting object is retrieved, we want members to to contain names instead of their corresponding IDs
+			Fix this
+	*/
 	meetingModel.findOne ({_id: req.params.meetingId}, function (err, meeting) {
 		if (err) { res.status (StatusCodes.INTERNAL_SERVER_ERROR); }
 		if (!meeting) { res.status (StatusCodes.NOT_FOUND); }
 		else { res.status (StatusCodes.OK).json (meeting); }
+	});
+};
+
+exports.api.cancelUpcoming = function (req, res) {
+	/* this API call is yet to be tested. Create another State in Angular: /upcoming/{id}/cancel which does:
+			1. makes the API call to perform cancellation
+			2. redirects to /upcoming
+	*/
+	var removeFromUser = function (callback) {
+		userModel.update ({_id: req.user._id}, { $pull: {upcomingMeetings: req.params.meetingId} }, callback);
+	},
+	removeFromMeeting = function (callback) {
+		meetingModel.update ({_id: req.params.meetingId}, { $pull: {members: req.user._id} }, callback);
+	};
+
+	async.parallel ([removeFromUser, removeFromMeeting], function (err, result) {
+		if (err) { res.status (StatusCodes.INTERNAL_SERVER_ERROR); }
+		if (!result) { res.status (StatusCodes.NOT_FOUND); }
+		else { res.status (StatusCodes.OK); }
 	});
 };
