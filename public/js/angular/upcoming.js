@@ -31,7 +31,7 @@ app.config (['$stateProvider', '$urlRouterProvider', function ($stateProvider, $
 app
   .controller ('ctrlUpcomingList', ['$scope', '$http', '$q', function ($scope, $http, $q) {
     $scope.meetingList = [];
-    
+
     $http.get (siteUrl + '/api/upcoming').then (function (response) {
       $scope.meetingList = response.data;
     }, function (err) {
@@ -39,6 +39,11 @@ app
     });
 
   }])
-  .controller ('ctrlUpcoming', ['$sope', '$stateParams', function ($scope, $stateParams) {
+  .controller ('ctrlUpcoming', ['$scope', '$stateParams', '$http', function ($scope, $stateParams, $http) {
     $scope.blank = $stateParams.id;
+    $http.get (siteUrl + '/api/upcoming/' + $stateParams.id).then (function (response) {
+      $scope.blank = response.data;
+    }, function (err) {
+      console.log (err);
+    });
   }]);

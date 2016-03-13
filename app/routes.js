@@ -43,9 +43,9 @@ module.exports = function (app, passport) {
 
   apiRouter
     .use (controllers.isLoggedIn)
-    .get ('/upcoming', controllers.api.upcoming);
-    /*.get ('/upcoming', controllers.upcomingList);
-    .get ('/upcoming/:id', controllers.upcomingById)
+    .get ('/upcoming', controllers.api.upcoming)
+    .get ('/upcoming/:meetingId', controllers.api.upcomingById);
+    /*
     .get ('/upcoming/:id/cancel', controllers.cancelUpcoming)
     .patch ('/upcoming/:id/edit', controllers.editUpcoming)
     .put ('/upcoming/:id/edit', controllers.editUpcoming)

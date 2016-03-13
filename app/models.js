@@ -13,9 +13,9 @@ userSchema = new mongoose.Schema ({
 meetingSchema = new mongoose.Schema ({
   creator: { type: String },
   members: { type: Array },
-  freeSlots: { type: Object },
+  freeSlots: { type: Object },  //slots marked free by all the members of this meeting: Object Key=User _id, Object value=Slot information
   venue: { type: String },
-  duration: { type: Number },
+  duration: { type: Number }, //in minutes
   agenda: { type: String },
   description: { type: String },
   date: { type: Date }

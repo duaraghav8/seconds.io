@@ -84,8 +84,19 @@ exports.api.upcoming = function (req, res) {
 					});
 				} (response.upcomingMeetings [i]));
 			}
-			
-			async.parallel (fetchCalls, function (err, results) { res.json (results); });
+
+			async.parallel (fetchCalls, function (err, results) {
+				if (err) {}
+				res.json (results);
+			});
 		}
+	});
+};
+
+exports.api.upcomingById = function (req, res) {
+	meetingModel.findOne ({_id: req.params.meetingId}, function (err, meeting) {
+		if (err) {}
+		if (!meeting) {}
+		res.json (meeting);
 	});
 };

@@ -97,7 +97,7 @@
       <!--angular views-->
       <script type = "text/ng-template" id = "/upcomingList.html">
         <div ng-repeat = "meeting in meetingList | orderBy: date">
-          {{meeting.agenda}} {{meeting.date}} by {{meeting.creator}}<br />
+          <a href = "#/upcoming/{{meeting._id}}">{{meeting.agenda}}</a> {{meeting.date}} by {{meeting.creator}}<br />
         </div>
       </script>
 
