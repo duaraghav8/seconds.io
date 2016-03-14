@@ -71,7 +71,7 @@ exports.api.upcoming = function (req, res) {
 			var fetchCalls = [], i;
 
 			/*
-				Crucial to recognize the function rapper 'function (meetingID)',
+				Crucial to recognize the function wrapper 'function (meetingID)',
 				which exploits the closure property so the corresponding meeting ID is
 				preserved within the function when async calls the returned function
 
